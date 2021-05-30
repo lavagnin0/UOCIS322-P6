@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template
 from flask_restful import Resource, Api
-import format_csv
 import pymongo
 from pymongo import MongoClient
 import os
