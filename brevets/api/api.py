@@ -17,7 +17,7 @@ DEFAULT_SORT = [('dist', pymongo.ASCENDING)]
 class ListAll(Resource):
     def get(self, dtype=''):
         k = request.args.get('top', default=0, type=int)
-        data = list(db.tododb.find({}, {'open': 1, 'close': 1}, sort=DEFAULT_SORT, limit=k))
+        data = list(db.tododb.find({}, {'_id': 0, 'open': 1, 'close': 1}, sort=DEFAULT_SORT, limit=k))
         if dtype == 'csv':
             response = "Open,Close\n"
             for item in data:
@@ -29,7 +29,7 @@ class ListAll(Resource):
 class ListOnlyOpen(Resource):
     def get(self, dtype=''):
         k = request.args.get('top', default=0, type=int)
-        data = list(db.tododb.find({}, {'open': 1}, sort=DEFAULT_SORT, limit=k))
+        data = list(db.tododb.find({}, {'_id': 0, 'open': 1}, sort=DEFAULT_SORT, limit=k))
         if dtype == 'csv':
             response = "Open\n"
             for item in data:
@@ -41,7 +41,7 @@ class ListOnlyOpen(Resource):
 class ListOnlyClose(Resource):
     def get(self, dtype=''):
         k = request.args.get('top', default=0, type=int)
-        data = list(db.tododb.find({}, {'close': 1}, sort=DEFAULT_SORT, limit=k))
+        data = list(db.tododb.find({}, {'_id': 0, 'close': 1}, sort=DEFAULT_SORT, limit=k))
         if dtype == 'csv':
             response = "Close\n"
             for item in data:
