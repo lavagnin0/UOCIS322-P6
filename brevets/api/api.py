@@ -19,7 +19,7 @@ class ListAll(Resource):
         k = request.args.get('top', default=0, type=int)
         if dtype == 'csv':
             pass
-        return flask.jsonify(list(db.tododb.find({}, {'open': 1, 'close': 1}, sort=DEFAULT_SORT, limit=k)))
+        return flask.jsonify(list(db.tododb.find({}, {'_id': 0, 'open': 1, 'close': 1}, sort=DEFAULT_SORT, limit=k)))
 
 
 class ListOnlyOpen(Resource):
@@ -27,7 +27,7 @@ class ListOnlyOpen(Resource):
         k = request.args.get('top', default=0, type=int)
         if dtype == 'csv':
             pass
-        return flask.jsonify(list(db.tododb.find({}, {'open': 1}, sort=DEFAULT_SORT, limit=k)))
+        return flask.jsonify(list(db.tododb.find({}, {'_id': 0, 'open': 1}, sort=DEFAULT_SORT, limit=k)))
 
 
 class ListOnlyClose(Resource):
@@ -35,7 +35,7 @@ class ListOnlyClose(Resource):
         k = request.args.get('top', default=0, type=int)
         if dtype == 'csv':
             pass
-        return flask.jsonify(list(db.tododb.find({}, {'close': 1}, sort=DEFAULT_SORT, limit=k)))
+        return flask.jsonify(list(db.tododb.find({}, {'_id': 0, 'close': 1}, sort=DEFAULT_SORT, limit=k)))
 
 
 api.add_resource(ListAll, '/listAll', '/listAll/<string:dtype>')
