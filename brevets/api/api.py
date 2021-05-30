@@ -17,25 +17,37 @@ DEFAULT_SORT = [('dist', pymongo.ASCENDING)]
 class ListAll(Resource):
     def get(self, dtype=''):
         k = request.args.get('top', default=0, type=int)
+        data = list(db.tododb.find({}, {'open': 1, 'close': 1}, sort=DEFAULT_SORT, limit=k))
         if dtype == 'csv':
-            pass
-        return flask.jsonify(list(db.tododb.find({}, {'_id': 0, 'open': 1, 'close': 1}, sort=DEFAULT_SORT, limit=k)))
+            response = "Open,Close\n"
+            for item in data:
+                response += item['open'] + ',' + item['close'] + '\n'
+            return reponse
+        return flask.jsonify(data)
 
 
 class ListOnlyOpen(Resource):
     def get(self, dtype=''):
         k = request.args.get('top', default=0, type=int)
+        data = list(db.tododb.find({}, {'open': 1}, sort=DEFAULT_SORT, limit=k))
         if dtype == 'csv':
-            pass
-        return flask.jsonify(list(db.tododb.find({}, {'_id': 0, 'open': 1}, sort=DEFAULT_SORT, limit=k)))
+            response = "Open\n"
+            for item in data:
+                response += item['open'] + '\n'
+            return reponse
+        return flask.jsonify(data)
 
 
 class ListOnlyClose(Resource):
     def get(self, dtype=''):
         k = request.args.get('top', default=0, type=int)
+        data = list(db.tododb.find({}, {'close': 1}, sort=DEFAULT_SORT, limit=k))
         if dtype == 'csv':
-            pass
-        return flask.jsonify(list(db.tododb.find({}, {'_id': 0, 'close': 1}, sort=DEFAULT_SORT, limit=k)))
+            response = "Close\n"
+            for item in data:
+                response += item['close'] + '\n'
+            return reponse
+        return flask.jsonify(data)
 
 
 api.add_resource(ListAll, '/listAll', '/listAll/<string:dtype>')
