@@ -22,7 +22,7 @@ class ListAll(Resource):
             response = "Open,Close\n"
             for item in data:
                 response += item['open'] + ',' + item['close'] + '\n'
-            return reponse
+            return response
         return flask.jsonify(data)
 
 
@@ -34,7 +34,7 @@ class ListOnlyOpen(Resource):
             response = "Open\n"
             for item in data:
                 response += item['open'] + '\n'
-            return reponse
+            return response
         return flask.jsonify(data)
 
 
@@ -46,7 +46,7 @@ class ListOnlyClose(Resource):
             response = "Close\n"
             for item in data:
                 response += item['close'] + '\n'
-            return reponse
+            return response
         return flask.jsonify(data)
 
 
