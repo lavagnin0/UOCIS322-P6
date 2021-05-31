@@ -15,10 +15,10 @@ def index():
 
 @app.route('/_req')
 def req():
-    format = flask.request.form.get('format', default='json', type=str)
-    k = flask.request.form.get('k', default=0, type=int)
-    open = flask.request.form.get('check_open', default='', type=str)
-    close = flask.request.form.get('check_close', default='', type=str)
+    format = flask.request.args.get('format', default='json', type=str)
+    k = flask.request.args.get('k', default=0, type=int)
+    open = flask.request.args.get('check_open', default='', type=str)
+    close = flask.request.args.get('check_close', default='', type=str)
     if open and close:
         option = 'listAll'
     elif open:
