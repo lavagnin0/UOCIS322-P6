@@ -13,7 +13,7 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/_req', methods=["POST"])
+@app.route('/_req')
 def req():
     format = flask.request.form.get('format')
     k = flask.request.form.get('k', default=0, type=int)
