@@ -26,5 +26,8 @@ services:
             - "5496:5000"
         depends_on:
             - restapi
+        environment:
+            - RESTAPI_HOSTNAME: restapi
+            - RESTAPI_PORT: 5000
     ourdb:
         image: mongo:latest
