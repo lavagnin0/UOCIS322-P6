@@ -15,19 +15,19 @@ def index():
 
 @app.route('/_req')
 def req():
-    format = flask.request.form.get('format')
+    format = flask.request.form.get('format', default='json', type=str)
     k = flask.request.form.get('k', default=0, type=int)
-    if flask.request.form.get('check_open') and flask.request.form.get('check_close'):
+    open = flask.request.form.get('check_open', default='', type=str)
+    close = flask.request.form.get('check_close', default='', type=str)
+    if open and close:
         option = 'listAll'
-    elif flask.request.form.get('check_open'):
+    elif open:
         option = 'listOpenOnly'
     else:
         option = 'listCloseOnly'
-    if format:
-        url = API_URL + '/' + option + '/' + format + '?top=' + str(k)
-        return redirect(url)
-    else:
-        pass
+    url = API_URL + '/' + option + '/' + format + '?top=' + str(k)
+    r = requests.get(url)
+    return r.text
 
 
 if __name__ == '__main__':
